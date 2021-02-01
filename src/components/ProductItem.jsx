@@ -10,8 +10,9 @@ const ProductItem = observer(({data}) => {
 
   return (
     <div className="item product">
+      {console.log('rerender', data.id)}
       <p className="name">{data.name}</p>
-      {productStore.product && (
+      {productStore.product && productStore.product.id === data.id && !productStore.isLoading && (
         <div className="info">
           {JSON.stringify(productStore.product)}
         </div>
