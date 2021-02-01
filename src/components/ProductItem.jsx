@@ -1,10 +1,8 @@
-import { observer } from 'mobx-react-lite';
+
+import {inject, observer} from 'mobx-react';
 import React, { useCallback } from 'react';
-import { useStores } from '../stores';
 
-const ProductItem = observer(({data}) => {
-
-  const {productStore} = useStores();
+const ProductItem = observer(({data, productStore}) => {
 
   const onLoad = useCallback(() => productStore.getById(data.id), [data, productStore]);
 
@@ -12,7 +10,7 @@ const ProductItem = observer(({data}) => {
     <div className="item product">
       {console.log('rerender', data.id)}
       <p className="name">{data.name}</p>
-      {productStore.product && productStore.product.id === data.id && !productStore.isLoading && (
+      {productStore.product && productStore.product.id === data.id && (
         <div className="info">
           {JSON.stringify(productStore.product)}
         </div>
@@ -22,4 +20,4 @@ const ProductItem = observer(({data}) => {
   );
 });
 
-export default ProductItem;
+export default inject(stores => ({productStore: stores.productStore}))(ProductItem);
