@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { useStores } from '../stores';
-import ProductItem from './ProductItem';
+import ProductItem from './ProductItem.container';
 
 export default observer(() => {
   const {productStore} = useStores();
@@ -14,7 +14,7 @@ export default observer(() => {
   return (
     <div className="container dashboard">
       {console.log('render', productStore.products)}
-      {productStore.products.map(product => (<ProductItem key={product.id} data={product}/>))}
+      {productStore.products.map(product => (<ProductItem key={product.id} product={product}/>))}
       {productStore.isLoading === true && <p>Loading</p>}
     </div>
   );
